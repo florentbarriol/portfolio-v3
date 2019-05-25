@@ -1,30 +1,28 @@
 module.exports = {
   siteMetadata: {
-    title: `My blog`,
-    description: `yoloo`,
+    title: `Blog`,
     author: `@florentbarriol`,
+    description: `yoloo`,
+    siteUrl: 'https://blog.florentbarriol.com',
+    social: {
+      twitter: 'https://www.twitter.com/florentbarriol',
+      github: 'https://www.github.com/florentbarriol',
+      codepen: 'https://www.codepen.io/florentbarriol',
+    },
   },
   plugins: [
-    `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-styled-components`,
     {
-      resolve: `gatsby-plugin-typography`,
+      resolve: `gatsby-source-filesystem`,
       options: {
-        pathToConfigModule: `src/utils/typography`,
+        path: `${__dirname}/content/blog`,
+        name: 'blog',
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/src/pages`,
-        name: 'pages',
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/src/images`,
-        name: 'images',
+        path: `${__dirname}/content/assets`,
+        name: 'assets',
       },
     },
     {
@@ -40,6 +38,14 @@ module.exports = {
         ],
       },
     },
+    `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-styled-components`,
+    {
+      resolve: `gatsby-plugin-typography`,
+      options: {
+        pathToConfigModule: `src/utils/typography`,
+      },
+    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
@@ -48,10 +54,10 @@ module.exports = {
         name: `gatsby-starter-default`,
         short_name: `starter`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#323330`,
+        theme_color: `#F0DB4F`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        // icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality

@@ -4,22 +4,27 @@ const { createFilePath } = require(`gatsby-source-filesystem`);
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
   if (node.internal.type === `MarkdownRemark`) {
-    const slug = createFilePath({ node, getNode, basePath: `pages` });
+    const value = createFilePath({ node, getNode, basePath: `posts` });
     createNodeField({
-      node,
       name: `slug`,
-      value: slug,
+      node,
+      value,
     });
   }
 };
 
+const blogPost = path.resolve(`./src/templates/blog-post.js`);
+
 exports.createPages = ({ graphql, actions }) => {
   // **Note:** The graphql function call returns a Promise
   // see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise for more info
-  const { createPage, deletePage } = actions;
+  const { createPage } = actions;
   return graphql(`
     {
-      allMarkdownRemark {
+      allMarkdownRemark(
+        sort: { fields: [frontmatter___date], order: DESC }
+        limit: 1000
+      ) {
         edges {
           node {
             frontmatter {
@@ -33,19 +38,22 @@ exports.createPages = ({ graphql, actions }) => {
       }
     }
   `).then(result => {
-    const pages = result.data.allMarkdownRemark.edges;
-    pages.forEach((page, index) => {
+    if (result.errors) {
+      throw result.errors;
+    }
+    const posts = result.data.allMarkdownRemark.edges;
+    posts.forEach((post, index) => {
       const previous =
-        index === pages.length - 1 ? null : pages[index + 1].node;
-      const next = index === 0 ? null : pages[index - 1].node;
+        index === posts.length - 1 ? null : posts[index + 1].node;
+      const next = index === 0 ? null : posts[index - 1].node;
 
       createPage({
-        path: page.node.fields.slug,
-        component: path.resolve(`./src/templates/blog-post.js`),
+        path: post.node.fields.slug,
+        component: blogPost,
         context: {
           next,
           previous,
-          slug: page.node.fields.slug,
+          slug: post.node.fields.slug,
         },
       });
     });

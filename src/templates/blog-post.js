@@ -1,6 +1,6 @@
 import React from 'react';
-import _get from 'lodash/get';
 import styled from 'styled-components';
+import { PropTypes } from 'prop-types';
 import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -10,71 +10,79 @@ import { scale, rhythm } from '../utils/typography';
 
 const Aside = styled.aside`
   margin-top: auto;
-  padding-top: ${rhythm(3)};
 `;
 
 const AsideTitle = styled.h3`
-  margin: 0%;
   a {
     color: var(--textLink);
-    text-decoration: none;
+    box-shadow: none;
   }
 `;
 
-const PostTitle = styled.h1`
-  ${scale(1.5)};
-`;
-
 const PostDate = styled.p`
-  ${scale(-0.25)};
-  margin: ${rhythm(-4 / 5)} 0 ${rhythm(1)};
+  ${scale(-1 / 5)};
+  margin: ${rhythm(-1)} 0 ${rhythm(1)};
 `;
 
-const BioStyled = styled(Bio)`
-  margin: ${rhythm(0.5)} 0 ${rhythm(3)};
+const HR = styled.hr`
+  margin-bottom: ${rhythm(1)};
 `;
 
-export default ({ data, location, pageContext }) => {
+const BlogPostTemplate = ({ data, location, pageContext }) => {
   const post = data.markdownRemark;
-  const siteTitle = _get(data, 'site.siteMetadata.title', '');
-  const { next, previous } = pageContext;
+  const siteTitle = data.site.siteMetadata.title;
+  const { previous, next } = pageContext;
   return (
     <Layout title={siteTitle} location={location}>
       <SEO
         title={post.frontmatter.title}
-        description={post.frontmatter.spoiler}
+        description={post.frontmatter.description || post.excerpt}
         slug={post.fields.slug}
       />
       <article>
         <header>
-          <PostTitle>{post.frontmatter.title}</PostTitle>
+          <h1>{post.frontmatter.title}</h1>
           <PostDate>{post.frontmatter.date}</PostDate>
         </header>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
       </article>
+      {/* TODO : ajouter un lien vers github pour faire une issue de correction */}
+      <HR />
       <Aside>
         <AsideTitle>
           <Link to="/">{siteTitle}</Link>
         </AsideTitle>
-        <BioStyled />
+        <Bio />
         <Pagination next={next} previous={previous} />
       </Aside>
     </Layout>
   );
 };
 
+BlogPostTemplate.propTypes = {
+  data: PropTypes.object,
+  location: PropTypes.object,
+  pageContext: PropTypes.object,
+};
+
+export default BlogPostTemplate;
+
 export const query = graphql`
   query($slug: String!) {
     site {
       siteMetadata {
         title
+        author
       }
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
+      id
+      excerpt(pruneLength: 160)
       html
       frontmatter {
         title
-        date(formatString: "DD, MMMM YYYY")
+        date(formatString: "📅 DD MMMM YYYY", locale: "fr")
+        description
       }
       fields {
         slug

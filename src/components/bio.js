@@ -1,58 +1,58 @@
 import React from 'react';
 import styled from 'styled-components';
-import { rhythm } from '../utils/typography';
-import { StaticQuery, graphql } from 'gatsby';
+import { useStaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
+import { rhythm } from '../utils/typography';
+
+const bioQuery = graphql`
+  query {
+    avatar: file(relativePath: { eq: "profile-pic.jpg" }) {
+      childImageSharp {
+        fixed(width: 56, height: 56) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+    site {
+      siteMetadata {
+        author
+        social {
+          twitter
+        }
+      }
+    }
+  }
+`;
 
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  max-width: 80%;
+  margin-bottom: ${rhythm(2.5)};
 
   & > * {
-    margin-right: ${rhythm(1 / 2)};
-  }
-  & > p {
     margin-bottom: 0;
   }
+  & > *:first-child {
+    flex: 0 0 56px;
+    border-radius: 100%;
+    margin-right: ${rhythm(1 / 2)};
+  }
 `;
 
-const ImagePortrait = ({ className }) => (
-  <StaticQuery
-    query={graphql`
-      query {
-        placeholderImage: file(relativePath: { eq: "portrait.jpeg" }) {
-          childImageSharp {
-            fixed(width: 50, height: 50) {
-              ...GatsbyImageSharpFixed
-            }
-          }
-        }
-      }
-    `}
-    render={data => (
-      <Img
-        className={className}
-        fixed={data.placeholderImage.childImageSharp.fixed}
-        alt="Florent Barriol"
-      />
-    )}
-  />
-);
-
-const ImagePortraitStyled = styled(ImagePortrait)`
-  border-radius: 50%;
-`;
-
-const Bio = ({ className }) => (
-  <Wrapper className={className}>
-    <ImagePortraitStyled />
-    <p>
-      Blog personnel de{' '}
-      <a href="https://www.twitter.com/florentbarriol">Florent Barriol</a>
-      <br />I make things with pixels !
-    </p>
-  </Wrapper>
-);
+const Bio = () => {
+  const { avatar, site } = useStaticQuery(bioQuery);
+  const { author, social } = site.siteMetadata;
+  const avatarPicture = avatar.childImageSharp.fixed;
+  return (
+    <Wrapper>
+      <Img fixed={avatarPicture} alt={author} />
+      <p>
+        Blog personnel de <a href={social.twitter}>{author}</a>
+        <br />
+        Je fais des trucs avec des pixels.
+      </p>
+    </Wrapper>
+  );
+};
 
 export default Bio;

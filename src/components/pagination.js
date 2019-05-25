@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 
@@ -8,6 +9,7 @@ const Wrapper = styled.ul`
   flex-wrap: wrap;
   list-style: none;
   margin: 0;
+  padding: 0;
 
   li {
     margin: 0;
@@ -34,5 +36,10 @@ const Pagination = ({ next, previous }) => (
     </Wrapper>
   </nav>
 );
+
+Pagination.propTypes = {
+  previous: PropTypes.object,
+  next: PropTypes.object,
+};
 
 export default Pagination;

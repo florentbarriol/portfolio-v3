@@ -1,14 +1,12 @@
 import { createGlobalStyle } from 'styled-components';
 
-// Colos came from https://github.com/dracula/visual-studio-code
-
-export const GlobalStyles = createGlobalStyle`
+export default createGlobalStyle`
   body {
-    --bg: #282A36;
-    --text: #F8F8F2;
-    --textTitle: #fff;
-    --textLink: #FFB86C;
-    --hr: #6272A4;
+    --bg: #323330;
+    --text: #FCFCFC;
+    --textTitle: #FCFCFC;
+    --textLink: #F0DB4F;
+    --hr: #F0DB4F;
 
     width: 100%;
     min-height: 100vh;
@@ -17,4 +15,5 @@ export const GlobalStyles = createGlobalStyle`
     background-color: var(--bg);
     color: var(--text);
   }
+  
 `;

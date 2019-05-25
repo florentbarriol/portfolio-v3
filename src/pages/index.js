@@ -1,72 +1,74 @@
 import React from 'react';
 import styled from 'styled-components';
-import _get from 'lodash/get';
+import { PropTypes } from 'prop-types';
 import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout';
 import Bio from '../components/bio';
 import SEO from '../components/seo';
-import Footer from '../components/footer';
-import { rhythm, scale } from '../utils/typography';
+import { rhythm } from '../utils/typography';
 
 const PostTitle = styled.h3`
-  ${scale(1)};
-  margin: ${rhythm(2)} 0 ${rhythm(1 / 4)};
+  font-family: Montserrat, sans-serif;
+  font-size: ${rhythm(1)};
+  margin-bottom: ${rhythm(1 / 4)};
   a {
-    text-decoration: none;
+    box-shadow: none;
   }
 `;
 
-const PostDate = styled.div`
-  ${scale(-0.25)}
-`;
-
-export default ({ data, location }) => {
-  const siteTitle = _get(data, 'site.siteMetadata.title', '');
+const Home = ({ data, location }) => {
+  const posts = data.allMarkdownRemark.edges;
 
   return (
-    <Layout title={siteTitle} location={location}>
-      <SEO />
-      <aside>
-        <Bio />
-      </aside>
-      <main>
-        {data.allMarkdownRemark.edges.map(({ node }) => (
-          <article key={node.id}>
+    <Layout location={location}>
+      <SEO title="Tous les articles" />
+      <Bio />
+      {posts.map(({ node }) => {
+        const title = node.frontmatter.title || node.fields.slug;
+        return (
+          <article key={node.fields.slug}>
             <header>
               <PostTitle>
-                <Link to={node.fields.slug}>{node.frontmatter.title}</Link>
+                <Link to={node.fields.slug} rel="bookmark">
+                  {title}
+                </Link>
               </PostTitle>
-              <PostDate>{node.frontmatter.date}</PostDate>
+              <small>{node.frontmatter.date}</small>
             </header>
-            <p>{node.excerpt}</p>
+            <p
+              dangerouslySetInnerHTML={{
+                __html: node.frontmatter.description || node.excerpt,
+              }}
+            />
           </article>
-        ))}
-      </main>
-      <Footer />
+        );
+      })}
     </Layout>
   );
 };
 
+Home.propTypes = {
+  data: PropTypes.object,
+  location: PropTypes.object,
+};
+
+export default Home;
+
 export const query = graphql`
   query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-    allMarkdownRemark {
+    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
       totalCount
       edges {
         node {
-          id
+          excerpt
           fields {
             slug
           }
           frontmatter {
             title
-            date(formatString: "DD, MMMM YYYY")
+            date(formatString: "📅 DD MMMM YYYY", locale: "fr")
+            description
           }
-          excerpt
         }
       }
     }

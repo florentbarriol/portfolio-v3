@@ -1,30 +1,40 @@
+/* global __PATH_PREFIX__:true */
+/* eslint no-undef: "error" */
 import React from 'react';
-import { Link } from 'gatsby';
+import { Link, useStaticQuery, graphql } from 'gatsby';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { rhythm, scale } from '../utils/typography';
 
 const Wrapper = styled.header`
-  height: 56px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   margin: 0 0 ${rhythm(1.5)};
 
-  & > * {
+  h1 {
+    ${scale(0.75)};
     margin: 0;
   }
-  h1 {
-    ${scale(1.25)}
-    a {
-      color: var(--textTitle);
-    }
-  }
   h3 {
-    ${scale(0.5)};
-    a {
+    font-family: Montserrat, sans-serif;
+    margin-top: 0;
+    margin-bottom: 0;
+    height: ${rhythm(1.5)};
+    line-height: ${rhythm(1.5)};
+    & a {
       color: var(--textLink);
     }
+  }
+`;
+
+const LinkStyled = styled(Link)`
+  &,
+  &:hover {
+    box-shadow: none;
+    text-decoration: none;
+    color: inherit;
   }
 `;
 
@@ -32,53 +42,37 @@ const Nav = styled.nav`
   ${scale(-0.25)}
 `;
 
-const LinkStyled = styled(Link)`
-  &,
-  &:hover {
-    text-decoration: none;
+const headerQuery = graphql`
+  query {
+    site {
+      siteMetadata {
+        title
+        author
+      }
+    }
   }
 `;
 
 const rootPath = `${__PATH_PREFIX__}/`;
 
-const Header = ({ location, title }) => {
-  const Component = location.pathname === rootPath ? 'h1' : 'h3';
+const Header = ({ location }) => {
+  const { site } = useStaticQuery(headerQuery);
+  const TitleComponent = (location || {}).pathname === rootPath ? 'h1' : 'h3';
   return (
     <Wrapper>
-      <Component>
-        <LinkStyled to="/">{title}</LinkStyled>
-      </Component>
+      <TitleComponent>
+        <LinkStyled to="/">{site.siteMetadata.title}</LinkStyled>
+      </TitleComponent>
       <Nav>
-        <a
-          href="https://www.twitter.com/florentbarriol"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          twitter
-        </a>
-        {` – `}
-        <a
-          href="https://www.github.com/florentbarriol"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          github
-        </a>
-        {` – `}
-        <a
-          href="https://www.codepen.io/florentbarriol"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          codepen
-        </a>
+        <Link to="/about">A propos</Link>
+        {` - `}
+        <Link to="/">Blog</Link>
       </Nav>
     </Wrapper>
   );
 };
 
 Header.propTypes = {
-  title: PropTypes.string,
   location: PropTypes.object,
 };
 

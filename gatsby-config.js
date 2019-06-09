@@ -1,9 +1,9 @@
 module.exports = {
   siteMetadata: {
-    title: `Blog`,
+    title: `florentbarriol.com`,
     author: `@florentbarriol`,
-    description: `yoloo`,
-    siteUrl: 'https://blog.florentbarriol.com',
+    description: `Personal website of Florent Barriol`,
+    siteUrl: 'https://florentbarriol.com',
     social: {
       twitter: 'https://www.twitter.com/florentbarriol',
       github: 'https://www.github.com/florentbarriol',
@@ -51,8 +51,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `florentbarriol.com`,
+        short_name: `fbarriol`,
         start_url: `/`,
         background_color: `#323330`,
         theme_color: `#F0DB4F`,

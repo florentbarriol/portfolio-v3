@@ -47,7 +47,7 @@ const Bio = () => {
     <Wrapper>
       <Img fixed={avatarPicture} alt={author} />
       <p>
-        Blog personnel de <a href={social.twitter}>{author}</a>
+        Site personnel de <a href={social.twitter}>{author}</a>
         <br />
         Je fais des trucs avec des pixels.
       </p>

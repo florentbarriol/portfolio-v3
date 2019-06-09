@@ -1,11 +1,11 @@
 {
-  "name": "blog",
+  "name": "website",
   "private": true,
-  "description": "Blog personnel de Florent Barriol",
+  "description": "Personal website of Florent Barriol",
   "version": "1.0.0",
   "author": "Florent Barriol",
   "bugs": {
-    "url": "https://github.com/florentbarriol/blog/issues"
+    "url": "https://github.com/florentbarriol/website/issues"
   },
   "dependencies": {
     "babel-plugin-styled-components": "^1.10.0",

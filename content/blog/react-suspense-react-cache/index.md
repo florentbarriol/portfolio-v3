@@ -9,7 +9,7 @@ Je parle de React.Suspense et du futur package react-cache.
 
 <a href="http://www.youtube.com/watch?v=lc3bLbR4wPY" title="Cliquez pour voir la rediffusion de mon talk" target="_blank" rel="noopener noreferrer">![React.Suspense et react-cache, le duo futuriste pour requêter des données en ReactJS](./video-talk.jpg)</a>
 
-> Vous pouvez revoir mon talk avec [ce replay](http://www.youtube.com/watch?v=lc3bLbR4wPY)
+> Vous pouvez revoir mon talk avec <a href="http://www.youtube.com/watch?v=lc3bLbR4wPY" title="Cliquez pour voir la rediffusion de mon talk" target="_blank" rel="noopener noreferrer">ce replay</a>
 
 Pour voir le code de la démo, ça se passe sur ce [dépôt github](https://github.com/florentbarriol/demo-talk-react-suspense).
 N'hésitez pas à créer une issue si trouvez un bug sur la démo ou à me contacter si vous avez une question

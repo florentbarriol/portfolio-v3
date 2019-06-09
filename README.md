@@ -1,4 +1,4 @@
-# [florentbarriol.com](https://florentbarriol.com)
+# [florentbarriol.com](https://florentbarriol.com) [![Netlify Status](https://api.netlify.com/api/v1/badges/ce7791ea-8e72-49ba-abca-1127afb36d1f/deploy-status)](https://app.netlify.com/sites/quizzical-hopper-ec442d/deploys)
 
 This is my personal website. You will see blog post and info about me.
 

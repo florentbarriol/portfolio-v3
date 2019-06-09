@@ -1,11 +1,11 @@
 {
-  "name": "florentbarriol-portfolio-blog",
+  "name": "blog",
   "private": true,
-  "description": "Florent Barriol portfolio/blog",
-  "version": "0.1.0",
+  "description": "Blog personnel de Florent Barriol",
+  "version": "1.0.0",
   "author": "Florent Barriol",
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/florentbarriol/blog/issues"
   },
   "dependencies": {
     "babel-plugin-styled-components": "^1.10.0",

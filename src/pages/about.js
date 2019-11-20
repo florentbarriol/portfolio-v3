@@ -5,7 +5,8 @@ import { useStaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
-import EXTERNAL_LINKS_ATTRS from '../utils/externalLinksAttrs';
+import Works from '../components/works';
+import Studies from '../components/studies';
 
 const aboutQuery = graphql`
   query {
@@ -31,77 +32,6 @@ const ImgWrapper = styled.div`
   }
 `;
 
-const WORKS = [
-  {
-    url: 'http://6play.fr',
-    project: '6play.fr',
-    client: 'Groupe M6',
-    company: 'Linkvalue',
-    description:
-      "Refonte graphique de la plateforme avec un design system pour intégrer plus de possibilités d'éditoralisation",
-    date: '2018 - today',
-    occupation: 'Développeur frontend',
-    stack: [
-      'css3',
-      'redux',
-      'styled-components',
-      'Jest',
-      'Cucumber',
-      'VueJS',
-      'Cypress',
-    ],
-  },
-  {
-    url: 'http://www.ebuyclub.com',
-    project: 'ebuyclub.com',
-    client: 'Plebicom',
-    company: 'Plebicom',
-    date: '2014 - 2017',
-    occupation: 'Développeur FullStack / Référent frontend',
-    description: '',
-    stack: ['html5', 'css3', 'jQuery', 'java', 'j2ee', 'jsp'],
-  },
-  {
-    url: 'https://shopformiles.flyingblue.com/',
-    project: 'Shop For Miles (Flying Blue)',
-    client: 'Air France',
-    company: 'Plebicom',
-    date: '2017',
-    occupation: 'Intégrateur/Développeur frontend',
-    description: '',
-    stack: ['html5', 'css3', 'jQuery', 'java', 'j2ee', 'jsp'],
-  },
-  {
-    url: 'https://www.bonnejournee-by-up.fr/',
-    project: 'Bonne journée',
-    client: 'Groupe Up',
-    company: 'Plebicom',
-    date: '2016 - 2017',
-    occupation: 'Intégrateur/Développeur frontend',
-    description: '',
-    stack: ['html5', 'css3', 'jQuery', 'java', 'j2ee', 'jsp'],
-  },
-];
-
-const STUDIES = [
-  {
-    degree:
-      "Licence Professionnelle Métiers de l'Internet et des Applications Multimédia",
-    date: '2012 - 2013',
-    school: 'UPMF Grenoble',
-  },
-  {
-    degree: 'Licence Informatique',
-    date: '2011 - 2012',
-    school: 'UCBL Lyon',
-  },
-  {
-    degree: 'D.U.T Informatique',
-    date: '2009 - 2011',
-    school: 'UCBL Lyon',
-  },
-];
-
 const About = ({ location }) => {
   const { avatar, site } = useStaticQuery(aboutQuery);
   const { author } = site.siteMetadata;
@@ -121,71 +51,9 @@ const About = ({ location }) => {
         !
       </p>
       <hr />
-      <h3>
-        <span aria-label="My" role="img">
-          ‍👨‍💻
-        </span>{' '}
-        Quelques projets auquel j'ai participé :{' '}
-      </h3>
-      <ul>
-        {WORKS.map(work => (
-          <li key={work.project}>
-            <p>
-              <a href={work.url} {...EXTERNAL_LINKS_ATTRS}>
-                {work.project}
-              </a>{' '}
-              {work.client ? `, ${work.client}` : ''}
-              <br />
-              <small>
-                {work.occupation} @{work.company}
-              </small>
-              <br />
-              {work.description && (
-                <>
-                  <small>{work.description}</small>
-                  <br />
-                </>
-              )}
-              <small>
-                <span aria-label="Date" role="img">
-                  📅
-                </span>{' '}
-                {work.date}
-              </small>
-              <br />
-              <small>
-                <span aria-label="Technologies" role="img">
-                  ⚒
-                </span>{' '}
-                #{work.stack.join(' #')}
-              </small>
-            </p>
-          </li>
-        ))}
-      </ul>
+      <Works />
       <hr />
-      <h3>
-        <span aria-label="Mon parcours" role="img">
-          ‍🏫
-        </span>{' '}
-        Mon parcours scolaire :{' '}
-      </h3>
-      <ul>
-        {STUDIES.map(study => (
-          <li key={study.degree}>
-            {study.degree}
-            <br />
-            <small>{study.school}</small>
-            <br />
-            <small>
-              <span aria-label="Date" role="img">
-                📅
-              </span>{' '}
-              {study.date}
-            </small>
-          </li>
-        ))}
-      </ul>
+      <Studies />
       <hr />
       <p>
         <span aria-label="Une question" role="img">

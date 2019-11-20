@@ -30,11 +30,14 @@ const Wrapper = styled.header`
 `;
 
 const LinkStyled = styled(Link)`
+  & {
+    color: var(--textLink);
+  }
   &,
   &:hover {
     box-shadow: none;
     text-decoration: none;
-    color: inherit;
+    /* color: inherit; */
   }
 `;
 
@@ -63,11 +66,11 @@ const Header = ({ location }) => {
       <TitleComponent>
         <LinkStyled to="/">{site.siteMetadata.title}</LinkStyled>
       </TitleComponent>
-      <Nav>
+      {/* <Nav>
         <Link to="/about">A propos</Link>
         {` - `}
         <Link to="/">Blog</Link>
-      </Nav>
+      </Nav> */}
     </Wrapper>
   );
 };

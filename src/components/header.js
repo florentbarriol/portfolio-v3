@@ -41,10 +41,6 @@ const LinkStyled = styled(Link)`
   }
 `;
 
-const Nav = styled.nav`
-  ${scale(-0.25)}
-`;
-
 const headerQuery = graphql`
   query {
     site {
@@ -66,11 +62,6 @@ const Header = ({ location }) => {
       <TitleComponent>
         <LinkStyled to="/">{site.siteMetadata.title}</LinkStyled>
       </TitleComponent>
-      {/* <Nav>
-        <Link to="/about">A propos</Link>
-        {` - `}
-        <Link to="/">Blog</Link>
-      </Nav> */}
     </Wrapper>
   );
 };

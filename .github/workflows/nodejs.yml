@@ -1,0 +1,79 @@
+name: Node CI
+
+on: [pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x]
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Cache
+        uses: actions/cache@v1.0.3
+        with:
+          path: node_modules/
+          key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: yarn install and build
+        run: |
+          yarn install --frozen-lockfile
+          yarn build
+      
+  format:
+    runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+        node-version: [10.x]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Cache
+        uses: actions/cache@v1.0.3
+        with:
+          path: node_modules/
+          key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+      - name: Format the project
+        run: |
+          yarn format
+    needs: [build]
+    
+  lint:
+    runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+        node-version: [10.x]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Cache
+        uses: actions/cache@v1.0.3
+        with:
+          path: node_modules/
+          key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+      - name: Lint the project
+        run: |
+          yarn lint
+    needs: [build]
+  test:
+    runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+        node-version: [10.x]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Cache
+        uses: actions/cache@v1.0.3
+        with:
+          path: node_modules/
+          key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+      - name: Test the project
+        run: |
+          yarn test
+    needs: [build]
+    

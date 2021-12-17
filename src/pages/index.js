@@ -16,7 +16,14 @@ const PostTitle = styled.h3`
   margin-top: 0;
   a {
     box-shadow: none;
+    &:hover {
+      text-decoration: underline;
+    }
   }
+`;
+
+const MetaInfo = styled.p`
+  margin: 0;
 `;
 
 const ImgWrapper = styled.div`
@@ -51,10 +58,10 @@ const Home = ({ data, location }) => {
       <Studies />
       <hr />
       <h3>
-        <span aria-label="Mon parcours" role="img">
-          ‍🗞
+        <span aria-label="Blog" role="img">
+          🗞️
         </span>{' '}
-        Blog :{' '}
+        Blog :
       </h3>
       {posts.map(({ node }) => {
         const title = node.frontmatter.title || node.fields.slug;
@@ -62,11 +69,33 @@ const Home = ({ data, location }) => {
           <article key={node.fields.slug}>
             <header>
               <PostTitle>
-                <Link to={node.fields.slug} rel="bookmark">
-                  {title}
-                </Link>
+                {node.frontmatter.url ? (
+                  <a
+                    href={node.frontmatter.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {title}
+                  </a>
+                ) : (
+                  <Link to={node.fields.slug} rel="bookmark">
+                    {title}
+                  </Link>
+                )}
               </PostTitle>
-              <small>{node.frontmatter.date}</small>
+              {node.frontmatter.url && (
+                <MetaInfo>
+                  <small>
+                    <span aria-label="Lien externe" role="img">
+                      ↗️
+                    </span>{' '}
+                    lien externe
+                  </small>
+                </MetaInfo>
+              )}
+              <MetaInfo>
+                <small>{node.frontmatter.date}</small>
+              </MetaInfo>
             </header>
             <p
               dangerouslySetInnerHTML={{
@@ -113,6 +142,7 @@ export const query = graphql`
             title
             date(formatString: "📅 DD MMMM YYYY", locale: "fr")
             description
+            url
           }
         }
       }

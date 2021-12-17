@@ -48,18 +48,18 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    {
-      resolve: `gatsby-plugin-manifest`,
-      options: {
-        name: `florentbarriol.com`,
-        short_name: `fbarriol`,
-        start_url: `/`,
-        background_color: `#323330`,
-        theme_color: `#F0DB4F`,
-        display: `minimal-ui`,
-        // icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-manifest`,
+    //   options: {
+    //     name: `florentbarriol.com`,
+    //     short_name: `fbarriol`,
+    //     start_url: `/`,
+    //     background_color: `#323330`,
+    //     theme_color: `#F0DB4F`,
+    //     display: `minimal-ui`,
+    //     icon: `src/images/favicon.png`, // This path is relative to the root of the site.
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-gtag`,
       options: {

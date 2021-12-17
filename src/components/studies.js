@@ -7,7 +7,7 @@ export default () => (
       <span aria-label="Mon parcours" role="img">
         ‍🏫
       </span>{' '}
-      Mon parcours scolaire :{' '}
+      Mes études :{' '}
     </h3>
     <ul>
       {STUDIES.map(study => (

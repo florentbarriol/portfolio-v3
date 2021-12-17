@@ -54,8 +54,7 @@ const Home = ({ data, location }) => {
       </p>
       <hr />
       <Works />
-      <hr />
-      <Studies />
+
       <hr />
       <h3>
         <span aria-label="Blog" role="img">
@@ -105,6 +104,8 @@ const Home = ({ data, location }) => {
           </article>
         );
       })}
+      <hr />
+      <Studies />
     </Layout>
   );
 };
